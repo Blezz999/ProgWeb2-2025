@@ -12,12 +12,12 @@ class AlunoController extends Controller
      */
     public function index()
     {
-        Aluno::create([
+       /* Aluno::create([
             "nome"=>'sagaz',
             "cpf"=>'99999999999',
             "telefone"=>'49 9999-9999',
 
-        ]);
+        ]);*/
         $dados = Aluno::All();
 
         //dd($alunos);
@@ -66,7 +66,9 @@ class AlunoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $dado=Aluno::findOrFail($id);
+        //dd($dado);
+        return view('aluno.form',['dado'=>$dado]);
     }
 
     /**
@@ -74,7 +76,17 @@ class AlunoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+       // dd($request->all(),$id);
+       $request->validate([
+        'nome'=>'required',
+        'cpf'=>'required',
+    ],[
+        'nome.required'=>'0 :attribute é obrigatório',
+        'cpf.required'=>'0 :attribute é obrigatório',
+    ]);
+
+    Aluno::updateOrCreate(['id'=>$id],$request->all());
+    return redirect('aluno');
     }
 
     /**
@@ -82,6 +94,21 @@ class AlunoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $dado=Aluno::findOrFail($id);
+        $dado->delete();
+        return redirect('aluno');
+    }
+    //
+    public function search(Request $request){
+        if(!empty($request->valor)){
+            $dados=Aluno::where(
+                $request->tipo,
+                'like',
+                "%$request->valor%"
+            )->get();
+        } else{
+            $dados=Aluno::All();
+        }
+        return view('aluno.list', ["dados"=>$dados]);
     }
 }
