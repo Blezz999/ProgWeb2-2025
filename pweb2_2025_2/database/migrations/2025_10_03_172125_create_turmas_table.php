@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('turmas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('curso_id')->constrained('cursos')->cascadeOnDelete();
-            $table->string('nome', 150);
-            $table->string('codigo', 20);
+            $table->string('nome',150);
+            $table->string('codigo',20);
             $table->date('data_inicio')->nullable();
             $table->date('data_fim')->nullable();
             $table->timestamps();

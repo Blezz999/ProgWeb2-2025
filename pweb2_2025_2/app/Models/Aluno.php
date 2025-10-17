@@ -9,7 +9,7 @@ class Aluno extends Model
 {
     use HasFactory;
 
-    protected $table="alunos";
+    protected $table = "alunos";
 
     protected $fillable = [
         'nome',
@@ -19,7 +19,8 @@ class Aluno extends Model
         'categoria_id'
     ];
 
-    public function categoria(){
+    public function categoria()
+    {
         return $this->belongsTo(CategoriaAluno::class, 'categoria_id');
     }
 }

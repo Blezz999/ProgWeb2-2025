@@ -9,7 +9,7 @@ class CategoriaAluno extends Model
 {
     use HasFactory;
 
-    protected $table="categoria_alunos";
+    protected $table = "categoria_alunos";
 
     protected $fillable = [
         'nome',
